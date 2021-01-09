@@ -1,0 +1,24 @@
+version: "3.7"
+services:
+
+  postgres:
+    build: ./postgres
+    environment:
+      - POSTGRES_DB=rappelle-be
+
+  rappelle-be:
+    image: vitorqb23/rappelle-be:latest
+    command:
+      - "--"
+      - '-Ddb.default.url=jdbc:postgresql://postgres:5432/rappelle-be'
+
+  rappelle-web:
+    image: vitorqb23/rappelle-web:latest
+
+  revproxy:
+    build: ./revproxy
+    ports:
+      - '9000:80'
+    links:
+      - 'rappelle-web'
+      - 'rappelle-be'

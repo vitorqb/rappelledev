@@ -1,0 +1,33 @@
+version: "3.7"
+services:
+
+  postgres:
+    volumes:
+      - pgdata-rappelle-be-local:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB2=rappelle-be-test
+      - POSTGRES_USER=theuser
+      - POSTGRES_PASSWORD=thepassword
+
+  rappelle-be:
+    ports:
+      - '9001:8000'
+
+  rappelle-web:
+    ports:
+      - '9002:8000'
+
+  local-revproxy:
+    build: ./revproxy
+    network_mode: "host"
+    command:
+      - "--be-url=http://127.0.0.1:9001"
+      - "--web-url=http://127.0.0.1:9002"
+      - "--port=9000"
+      - "--"
+      - "nginx"
+      - "-g"
+      - "daemon off;"
+
+volumes:
+  pgdata-rappelle-be-local:
