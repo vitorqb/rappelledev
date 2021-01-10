@@ -91,10 +91,21 @@ class RunPostgresCmd(Command):
 
     @classmethod
     def configure_parser(cls, parser):
-        pass
+        parser.add_argument(
+            "args",
+            nargs="+",
+            help="Arguments passed to docker-compose up"
+        )
 
     def __call__(self, args):
-        self._runner.run_docker_compose(["up", "--force-recreate", "postgres"])
+        self._runner.run_docker_compose(
+            [
+                "up",
+                "--force-recreate",
+                *(args.args or []),
+                "postgres"
+            ]
+        )
 
 
 class RunRappelleBeCmd(Command):
