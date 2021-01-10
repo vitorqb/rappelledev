@@ -233,7 +233,7 @@ def main():
     docker_compose_cmd = (
         args.docker_compose_cmd
         or config.get("docker-compose-cmd", None)
-        or ["docker-compose"]
+        or ["/bin/env", "docker-compose"]
     )
     directory = args.directory or config.get("directory") or os.path.expanduser("~/rappelledev")
     logging.info("Starting with env=%s directory=%s docker_compose_cmd=%s", env, directory, docker_compose_cmd)
