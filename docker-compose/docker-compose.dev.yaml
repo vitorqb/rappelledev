@@ -5,7 +5,7 @@ services:
     volumes:
       - pgdata-rappelle-be-local:/var/lib/postgresql/data
     environment:
-      - POSTGRES_DB2=rappelle-be-test
+      - POSTGRES_DB_2=rappelle-be-test
       - POSTGRES_USER=theuser
       - POSTGRES_PASSWORD=thepassword
 

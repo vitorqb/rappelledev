@@ -93,7 +93,7 @@ class RunPostgresCmd(Command):
     def configure_parser(cls, parser):
         parser.add_argument(
             "args",
-            nargs="+",
+            nargs="*",
             help="Arguments passed to docker-compose up"
         )
 
