@@ -196,6 +196,22 @@ class RunHostRevproxyCmd(Command):
         self._runner.run_docker_compose(["run", "local-revproxy"])
 
 
+class PostgresShellCmd(Command):
+    """ Runs a postgres shell """
+
+    @classmethod
+    def get_name(self):
+        return "postgres-shell"
+
+    @classmethod
+    def configure_parser(cls, parser):
+        parser.add_argument("-t", "--test", help="Connect to the test db instead", action="store_true")
+
+    def __call__(self, args):
+        db = (TEST_DB_NAME if args.test else DB_NAME)
+        self._runner.run_docker_compose(['exec', 'postgres', 'psql', db, POSTGRES_USER])
+
+
 # ArgumentParser
 # Arg parsing
 parser = argparse.ArgumentParser(description="Development tools for rappelle")
