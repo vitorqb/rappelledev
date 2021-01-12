@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB_2=rappelle-be-test
       - POSTGRES_USER=theuser
       - POSTGRES_PASSWORD=thepassword
+    ports:
+      - '9003:5432'
 
   rappelle-be:
     ports:
